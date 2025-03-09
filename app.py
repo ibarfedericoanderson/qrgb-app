@@ -9,7 +9,7 @@ from pathlib import Path
 from io import BytesIO
 
 # Configuración inicial de la página
-st.set_page_config(page_title="Generador QRGB", page_icon=":barcode:", layout="wide")
+st.set_page_config(page_title="Generador QRGB Online", page_icon=":barcode:", layout="wide")
 
 # Configuración de paths
 BASE_PATH = os.path.dirname(os.path.abspath(__file__))
@@ -347,7 +347,7 @@ def main():
     if 'page' not in st.session_state:
         st.session_state.page = "inicio"
     if st.session_state.page == "inicio":
-        st.markdown('<div class="title">Generador QRGB</div>', unsafe_allow_html=True)
+        st.markdown('<div class="title">Generador QRGB Online</div>', unsafe_allow_html=True)
         st.write("Codifica QRGB.")
         col1, col2 = st.columns(2)
         with col1:
