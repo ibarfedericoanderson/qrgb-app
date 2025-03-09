@@ -1,4 +1,3 @@
-
 import streamlit as st
 from PIL import Image
 import qrcode
@@ -26,12 +25,12 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# Estilos CSS para una interfaz profesional
+# Estilos CSS para una interfaz profesional y minimalista
 st.markdown("""
     <style>
     .stApp {
         background-color: #f5f6fa;
-        font-family: 'Arial', sans-serif;
+        font-family: 'Inter', sans-serif;
     }
     .title {
         font-size: 36px;
@@ -44,25 +43,36 @@ st.markdown("""
         font-size: 24px;
         color: #34495e;
         margin-top: 30px;
+        margin-bottom: 20px;
     }
     .stButton>button {
-        border-radius: 8px;
+        border-radius: 12px;
         font-size: 16px;
-        padding: 10px 20px;
+        padding: 12px 24px;
         width: 100%;
         border: none;
+        transition: background-color 0.3s ease;
     }
     .btn-encode {
-        background-color: #2980b9 !important;
+        background-color: #3498db !important;
         color: white !important;
+    }
+    .btn-encode:hover {
+        background-color: #2980b9 !important;
     }
     .btn-decode {
-        background-color: #1abc9c !important;
-        color: white !important;
-    }
-    .btn-back {
         background-color: #2ecc71 !important;
         color: white !important;
+    }
+    .btn-decode:hover {
+        background-color: #27ae60 !important;
+    }
+    .btn-back {
+        background-color: #95a5a6 !important;
+        color: white !important;
+    }
+    .btn-back:hover {
+        background-color: #7f8c8d !important;
     }
     .stTextInput>label {
         font-size: 16px;
@@ -82,6 +92,9 @@ st.markdown("""
     .icon-large {
         font-size: 24px;
         margin-right: 10px;
+    }
+    .stMarkdown {
+        margin-bottom: 20px;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -193,10 +206,10 @@ def main():
         st.write("Crea y decodifica códigos QR RGB con un diseño profesional y minimalista.")
         col1, col2 = st.columns(2)
         with col1:
-            if st.button("🧩 Codificar QR", key="encode_btn"):
+            if st.button("🔒 Codificar QR", key="encode_btn", help="Codificar un nuevo QR RGB"):
                 st.session_state.page = "codificar"
         with col2:
-            if st.button("🔓 Decodificar QR", key="decode_btn"):
+            if st.button("🔓 Decodificar QR", key="decode_btn", help="Decodificar un QR RGB existente"):
                 st.session_state.page = "decodificar"
     # Codificar QR
     elif st.session_state.page == "codificar":
@@ -211,7 +224,7 @@ def main():
             logo_file = st.file_uploader("📂 Cargar Logo", type=['png', 'jpg', 'jpeg'], key="logo_upload")
         col_btn1, col_btn2 = st.columns([1, 1])
         with col_btn1:
-            if st.button("📥 Generar QR", key="generate_btn"):
+            if st.button("📥 Generar QR", key="generate_btn", help="Generar el QR RGB con los datos proporcionados"):
                 if logo_file and all([red_data, green_data, blue_data]):
                     try:
                         logo_path = os.path.join(FOLDER_PATH, "temp_logo.png")
@@ -233,7 +246,7 @@ def main():
                 else:
                     st.error("Completa todos los campos y sube un logo.")
         with col_btn2:
-            if st.button("🏠 Volver", key="back_encode_btn"):
+            if st.button("🏠 Volver", key="back_encode_btn", help="Volver al inicio"):
                 st.session_state.page = "inicio"
     # Decodificar QR
     elif st.session_state.page == "decodificar":
@@ -242,7 +255,7 @@ def main():
         qr_file = st.file_uploader("📂 Cargar QR RGB", type=['png'], key="qr_upload")
         col_btn1, col_btn2 = st.columns([1, 1])
         with col_btn1:
-            if qr_file and st.button("🔍 Decodificar QR", key="decode_qr_btn"):
+            if qr_file and st.button("🔍 Decodificar QR", key="decode_qr_btn", help="Decodificar el QR RGB cargado"):
                 try:
                     qr_path = os.path.join(FOLDER_PATH, "temp_qr.png")
                     with open(qr_path, "wb") as f:
@@ -266,7 +279,7 @@ def main():
                 except Exception as e:
                     st.error(f"Error al decodificar: {str(e)}")
         with col_btn2:
-            if st.button("🏠 Volver", key="back_decode_btn"):
+            if st.button("🏠 Volver", key="back_decode_btn", help="Volver al inicio"):
                 st.session_state.page = "inicio"
 
 if __name__ == '__main__':
