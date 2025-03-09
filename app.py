@@ -1,3 +1,21 @@
+# QRGB Generator
+# © 2025 Ibar Federico Anderson, Ph.D. M.Des., Industrial Designer. All rights reserved.
+#
+# This work is licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0).
+# To view a copy of this license, visit https://creativecommons.org/licenses/by/4.0/
+# 🔍 You are free to:
+#    • Share — copy and redistribute the material in any medium or format
+#    • Adapt — remix, transform, and build upon the material for any purpose, even commercially.
+# Under the following terms:
+#    • Attribution — You must give appropriate credit, provide a link to the license, and indicate if changes were made.
+#    • No additional restrictions — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.
+#
+# Author Profiles:
+#    [Icono Google Scholar] Google Scholar - https://scholar.google.com/citations?user=mXD4RFUAAAAJ&hl=en
+#    [Icono ORCID] ORCID - https://orcid.org/0000-0002-9732-3660
+#    [Icono ResearchGate] ResearchGate - https://www.researchgate.net/profile/Ibar-Anderson
+# Symbols: © (Copyright) | CC (Creative Commons) | BY (Attribution)
+
 import streamlit as st
 from PIL import Image
 import qrcode
@@ -203,7 +221,7 @@ def show_creator_profile():
     # Google Scholar con icono
     st.markdown(
         '<p>'
-        '<img src="https://upload.wikimedia.org/wikipedia/commons/2/28/Google_Scholar_logo.png" width="20" height="20" style="vertical-align: middle; margin-right: 10px;">'
+        '<img src="https://upload.wikimedia.org/wikipedia/commons/2/28/Google_Scholar_logo.svg" width="20" height="20" style="vertical-align: middle; margin-right: 10px;">'
         '<strong>Google Scholar:</strong> <a href="https://scholar.google.com/citations?user=mXD4RFUAAAAJ&hl=en" target="_blank">Visit Profile</a>'
         '</p>',
         unsafe_allow_html=True
@@ -230,7 +248,7 @@ def show_creator_profile():
     # Creative Commons con icono
     st.markdown(
         '<p>'
-        '<img src="https://upload.wikimedia.org/wikipedia/commons/6/62/Cc-by-nc-nd_icon.svg" width="20" height="20" style="vertical-align: middle; margin-right: 10px;">'
+        '<img src="https://diff.wikimedia.org/wp-content/uploads/2023/06/CC-BY-SA-icon-1024x1024.png" width="20" height="20" style="vertical-align: middle; margin-right: 10px;">'
         '<strong>Creative Commons:</strong> This work is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0 License</a>.'
         '</p>',
         unsafe_allow_html=True
