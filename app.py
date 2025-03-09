@@ -33,30 +33,31 @@ st.markdown("""
         font-family: 'Inter', sans-serif;
     }
     .title {
-        font-size: 40px;
+        font-size: 48px;
         font-weight: 700;
         color: #2c3e50;
         text-align: center;
-        margin-bottom: 30px;
+        margin-bottom: 40px;
     }
     .subtitle {
-        font-size: 28px;
+        font-size: 36px;
         font-weight: 700;
         color: #34495e;
-        margin-top: 30px;
-        margin-bottom: 20px;
+        margin-top: 40px;
+        margin-bottom: 30px;
     }
     .stButton>button {
-        border-radius: 12px;
-        font-size: 22px;
+        border-radius: 15px;
+        font-size: 28px;
         font-weight: 700;
-        padding: 20px 40px;
+        padding: 25px 50px;
         width: 100%;
         border: none;
         transition: all 0.3s ease;
         display: flex;
         align-items: center;
         justify-content: center;
+        height: 80px;
     }
     /* Botón Codificar QRGB */
     button[kind="encode"] {
@@ -129,57 +130,60 @@ st.markdown("""
         background-color: #2980b9 !important;
     }
     .stTextInput>label, .stFileUploader>label {
-        font-size: 20px;
+        font-size: 24px;
         font-weight: 700;
         color: #2c3e50;
     }
     .result-box {
         background-color: #f8f9fa;
-        padding: 20px;
-        border-radius: 10px;
+        padding: 25px;
+        border-radius: 12px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        margin-top: 20px;
+        margin-top: 25px;
     }
     .color-red {
         color: #e74c3c;
         font-weight: 700;
-        font-size: 22px;
+        font-size: 26px;
     }
     .color-green {
         color: #2ecc71;
         font-weight: 700;
-        font-size: 22px;
+        font-size: 26px;
     }
     .color-blue {
         color: #3498db;
         font-weight: 700;
-        font-size: 22px;
+        font-size: 26px;
     }
     .symbol {
-        font-size: 30px;
-        margin-right: 10px;
+        font-size: 40px;
+        margin-right: 15px;
     }
     </style>
 """, unsafe_allow_html=True)
 
-# Funciones de QR (sin cambios)
-def create_qr_with_logo(data, color, logo_path, qr_version=10, box_size=10):
+# Funciones de QR modificadas para logo opcional
+def create_qr(data, color, qr_version=10, box_size=10):
     qr = qrcode.QRCode(version=qr_version, error_correction=qrcode.constants.ERROR_CORRECT_H, box_size=box_size, border=4)
     qr.add_data(data)
     qr.make(fit=True)
     img = qr.make_image(fill_color=color, back_color="white").convert('RGBA')
-    if not os.path.exists(logo_path):
-        raise FileNotFoundError(f"Logo file not found: {logo_path}")
-    logo = Image.open(logo_path).convert("RGBA")
-    basewidth = img.size[0] // 4
-    wpercent = (basewidth / float(logo.size[0]))
-    hsize = int((float(logo.size[1]) * float(wpercent)))
-    logo = logo.resize((basewidth, hsize), Image.LANCZOS)
-    pos = ((img.size[0] - logo.size[0]) // 2, (img.size[1] - logo.size[1]) // 2)
-    img.paste(logo, pos, logo)
     return img
 
-def combine_qr_images(img1, img2, img3, logo_path):
+def create_qr_with_logo(data, color, logo_path, qr_version=10, box_size=10):
+    img = create_qr(data, color, qr_version, box_size)
+    if logo_path and os.path.exists(logo_path):
+        logo = Image.open(logo_path).convert("RGBA")
+        basewidth = img.size[0] // 4
+        wpercent = (basewidth / float(logo.size[0]))
+        hsize = int((float(logo.size[1]) * float(wpercent)))
+        logo = logo.resize((basewidth, hsize), Image.LANCZOS)
+        pos = ((img.size[0] - logo.size[0]) // 2, (img.size[1] - logo.size[1]) // 2)
+        img.paste(logo, pos, logo)
+    return img
+
+def combine_qr_images(img1, img2, img3, logo_path=None):
     size = img1.size
     if img2.size != size or img3.size != size:
         raise ValueError("All QR images must be the same size")
@@ -210,21 +214,27 @@ def combine_qr_images(img1, img2, img3, logo_path):
         else:
             new_data.append((0, 0, 0, 255))
     final_image.putdata(new_data)
-    logo = Image.open(logo_path).convert("RGBA")
-    basewidth = final_image.size[0] // 4
-    wpercent = (basewidth / float(logo.size[0]))
-    hsize = int((float(logo.size[1]) * float(wpercent)))
-    logo = logo.resize((basewidth, hsize), Image.LANCZOS)
-    pos = ((final_image.size[0] - logo.size[0]) // 2, (final_image.size[1] - logo.size[1]) // 2)
-    final_image.paste(logo, pos, logo)
+    if logo_path and os.path.exists(logo_path):
+        logo = Image.open(logo_path).convert("RGBA")
+        basewidth = final_image.size[0] // 4
+        wpercent = (basewidth / float(logo.size[0]))
+        hsize = int((float(logo.size[1]) * float(wpercent)))
+        logo = logo.resize((basewidth, hsize), Image.LANCZOS)
+        pos = ((final_image.size[0] - logo.size[0]) // 2, (final_image.size[1] - logo.size[1]) // 2)
+        final_image.paste(logo, pos, logo)
     return final_image
 
-def generate_qrgb(red_data, green_data, blue_data, logo_path, mode):
+def generate_qrgb(red_data, green_data, blue_data, logo_path=None, mode='link'):
     qr_version = 10 if mode == 'link' else 3
     box_size = 10 if mode == 'link' else 20
-    img_red = create_qr_with_logo(red_data, "red", logo_path, qr_version, box_size)
-    img_green = create_qr_with_logo(green_data, "green", logo_path, qr_version, box_size)
-    img_blue = create_qr_with_logo(blue_data, "blue", logo_path, qr_version, box_size)
+    if logo_path:
+        img_red = create_qr_with_logo(red_data, "red", logo_path, qr_version, box_size)
+        img_green = create_qr_with_logo(green_data, "green", logo_path, qr_version, box_size)
+        img_blue = create_qr_with_logo(blue_data, "blue", logo_path, qr_version, box_size)
+    else:
+        img_red = create_qr(red_data, "red", qr_version, box_size)
+        img_green = create_qr(green_data, "green", qr_version, box_size)
+        img_blue = create_qr(blue_data, "blue", qr_version, box_size)
     combined_img = combine_qr_images(img_red, img_green, img_blue, logo_path)
     combined_img.save(os.path.join(FOLDER_PATH, "superposed_qr.png"))
     return combined_img
@@ -277,22 +287,24 @@ def main():
     # Codificar QRGB
     elif st.session_state.page == "codificar":
         st.markdown('<div class="subtitle">Codificar QRGB</div>', unsafe_allow_html=True)
-        st.write("Ingresa los datos y sube un logo para generar tu QRGB personalizado.")
+        st.write("Ingresa los datos y sube un logo (opcional) para generar tu QRGB personalizado.")
         col1, col2 = st.columns([2, 1])
         with col1:
             red_data = st.text_input("🔴 Capa Roja", placeholder="Texto o URL", key="red_input")
-            green_data = st.text_input("🔴 Capa Verde", placeholder="Texto o URL", key="green_input")
-            blue_data = st.text_input("🔴 Capa Azul", placeholder="Texto o URL", key="blue_input")
+            green_data = st.text_input("🟢 Capa Verde", placeholder="Texto o URL", key="green_input")
+            blue_data = st.text_input("🔵 Capa Azul", placeholder="Texto o URL", key="blue_input")
         with col2:
-            logo_file = st.file_uploader("📂 Cargar Logo", type=['png', 'jpg', 'jpeg'], key="logo_upload")
+            logo_file = st.file_uploader("📂 Cargar Logo (Opcional)", type=['png', 'jpg', 'jpeg'], key="logo_upload")
         col_btn1, col_btn2 = st.columns([1, 1])
         with col_btn1:
             if st.button("📥 Generar QRGB", key="generate_btn", help="Generar el QRGB con los datos proporcionados", type="primary"):
-                if logo_file and all([red_data, green_data, blue_data]):
+                if all([red_data, green_data, blue_data]):
                     try:
-                        logo_path = os.path.join(FOLDER_PATH, "temp_logo.png")
-                        with open(logo_path, "wb") as f:
-                            f.write(logo_file.getbuffer())
+                        logo_path = None
+                        if logo_file:
+                            logo_path = os.path.join(FOLDER_PATH, "temp_logo.png")
+                            with open(logo_path, "wb") as f:
+                                f.write(logo_file.getbuffer())
                         mode = 'link' if any('http' in text.lower() for text in [red_data, green_data, blue_data]) else 'text'
                         combined_img = generate_qrgb(red_data, green_data, blue_data, logo_path, mode)
                         st.image(combined_img, caption="QRGB Generado", width=400)
@@ -301,12 +313,13 @@ def main():
                         combined_img.save(buf, format="PNG")
                         byte_im = buf.getvalue()
                         st.download_button(label="💾 Descargar QRGB", data=byte_im, file_name="qrgb.png", mime="image/png", key="download_btn", type="primary")
-                        os.remove(logo_path)
+                        if logo_path:
+                            os.remove(logo_path)
                     except Exception as e:
                         logger.error(f"Error generating QRGB: {str(e)}")
                         st.error(f"Error: {str(e)}")
                 else:
-                    st.error("Completa todos los campos y sube un logo.")
+                    st.error("Completa todos los campos de texto.")
         with col_btn2:
             if st.button("🏠 Volver", key="back_encode_btn", help="Volver al inicio", type="primary"):
                 st.session_state.page = "inicio"
@@ -331,11 +344,11 @@ def main():
                         if data_red and ('http://' in data_red or 'https://' in data_red):
                             if st.button("🔗 Abrir URL Roja", key="url_red_btn", help="Abrir la URL de la capa roja", type="primary"):
                                 webbrowser.open(data_red)
-                        st.markdown(f'<span class="color-green"><span class="symbol">🔴</span> Capa Verde:</span> {data_green}', unsafe_allow_html=True)
+                        st.markdown(f'<span class="color-green"><span class="symbol">🟢</span> Capa Verde:</span> {data_green}', unsafe_allow_html=True)
                         if data_green and ('http://' in data_green or 'https://' in data_green):
                             if st.button("🔗 Abrir URL Verde", key="url_green_btn", help="Abrir la URL de la capa verde", type="primary"):
                                 webbrowser.open(data_green)
-                        st.markdown(f'<span class="color-blue"><span class="symbol">🔴</span> Capa Azul:</span> {data_blue}', unsafe_allow_html=True)
+                        st.markdown(f'<span class="color-blue"><span class="symbol">🔵</span> Capa Azul:</span> {data_blue}', unsafe_allow_html=True)
                         if data_blue and ('http://' in data_blue or 'https://' in data_blue):
                             if st.button("🔗 Abrir URL Azul", key="url_blue_btn", help="Abrir la URL de la capa azul", type="primary"):
                                 webbrowser.open(data_blue)
