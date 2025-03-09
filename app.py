@@ -197,7 +197,7 @@ st.markdown("""
 # Sección de presentación del creador
 def show_creator_profile():
     st.markdown('<div class="profile-box">', unsafe_allow_html=True)
-    st.markdown('<h2>👤 About the Creator</h2>', unsafe_allow_html=True)
+    st.markdown('<h2>👤 Autor:</h2>', unsafe_allow_html=True)
     st.markdown('<p>© 2025 <strong>Ibar Federico Anderson, Ph.D. M.Des., Industrial Designer</strong>. All rights reserved.</p>', unsafe_allow_html=True)
     st.markdown(
         '<p>'
@@ -215,7 +215,7 @@ def show_creator_profile():
     st.markdown(
         '<p>'
         '<img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/ResearchGate_icon_SVG.svg" width="20" height="20" style="vertical-align: middle; margin-right: 10px;">'
-        '<strong>ResearchGate:</strong> <a href="https://www.researchgate.net/profile/Ibar-Anderson" target="_blank">Visit Profile</a>'
+        '<strong>Research Gate:</strong> <a href="https://www.researchgate.net/profile/Ibar-Anderson" target="_blank">Visit Profile</a>'
         '</p>',
         unsafe_allow_html=True
     )
@@ -348,7 +348,7 @@ def main():
         st.session_state.page = "inicio"
     if st.session_state.page == "inicio":
         st.markdown('<div class="title">Generador QRGB</div>', unsafe_allow_html=True)
-        st.write("Crea y decodifica códigos QRGB con un diseño profesional y minimalista.")
+        st.write("Codifica y Decodifica Códigos QRGB.")
         col1, col2 = st.columns(2)
         with col1:
             if st.button("🔒 Codificar QRGB", key="encode_btn", help="Codificar un nuevo QRGB", type="primary"):
@@ -362,9 +362,9 @@ def main():
         st.write("Ingresa los datos y sube un logo (opcional) para generar tu QRGB personalizado.")
         col1, col2 = st.columns([2, 1])
         with col1:
-            red_data = st.text_input("🔗 Capa Roja", placeholder="Texto o URL", key="red_input")
-            green_data = st.text_input("🔗 Capa Verde", placeholder="Texto o URL", key="green_input")
-            blue_data = st.text_input("🔗 Capa Azul", placeholder="Texto o URL", key="blue_input")
+            red_data = st.text_input("🔗 Ingresa Datos de la Capa Roja:", placeholder="Texto o URL", key="red_input")
+            green_data = st.text_input("🔗 Ingresa Datos de la Capa Verde:", placeholder="Texto o URL", key="green_input")
+            blue_data = st.text_input("🔗 Ingresa Datos de la Capa Azul:", placeholder="Texto o URL", key="blue_input")
         with col2:
             logo_file = st.file_uploader("🖼️ Cargar Logo (Opcional)", type=['png', 'jpg', 'jpeg'], key="logo_upload")
         col_btn1, col_btn2 = st.columns([1, 1])
