@@ -217,11 +217,10 @@ def show_creator_profile():
     st.markdown('<h2>👤 About the Creator</h2>', unsafe_allow_html=True)
     st.markdown('<p>© 2025 <strong>Ibar Federico Anderson, Ph.D. M.Des., Industrial Designer</strong>. All rights reserved.</p>', unsafe_allow_html=True)
     
-    # Google Scholar con icono actualizado
+    # Google Scholar con emoji de graduación
     st.markdown(
         '<p>'
-        '<img src="https://commons.wikimedia.org/wiki/File:Google_Scholar_logo.svg" width="20" height="20" style="vertical-align: middle; margin-right: 10px;">'
-        '<strong>Google Scholar:</strong> <a href="https://scholar.google.com/citations?user=mXD4RFUAAAAJ&hl=en" target="_blank">Visit Profile</a>'
+        '🎓 <strong>Google Scholar:</strong> <a href="https://scholar.google.com/citations?user=mXD4RFUAAAAJ&hl=en" target="_blank">Visit Profile</a>'
         '</p>',
         unsafe_allow_html=True
     )
@@ -244,11 +243,10 @@ def show_creator_profile():
         unsafe_allow_html=True
     )
     
-    # Creative Commons con icono actualizado
+    # Creative Commons con emoji de libro abierto
     st.markdown(
         '<p>'
-        '<img src="https://diff.wikimedia.org/wp-content/uploads/2023/06/Creative-Commons-Attribution-ShareAlike-badge.png?w=1024" width="20" height="20" style="vertical-align: middle; margin-right: 10px;">'
-        '<strong>Creative Commons:</strong> This work is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0 License</a>.'
+        '📖 <strong>Creative Commons:</strong> This work is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0 License</a>.'
         '</p>',
         unsafe_allow_html=True
     )
@@ -372,10 +370,10 @@ def main():
         st.write("Crea y decodifica códigos QRGB con un diseño profesional y minimalista.")
         col1, col2 = st.columns(2)
         with col1:
-            if st.button("🔑 Codificar QRGB", key="encode_btn", help="Codificar un nuevo QRGB", type="primary"):
+            if st.button("🔒 Codificar QRGB", key="encode_btn", help="Codificar un nuevo QRGB", type="primary"):
                 st.session_state.page = "codificar"
         with col2:
-            if st.button("🔍 Decodificar QRGB", key="decode_btn", help="Decodificar un QRGB existente", type="primary"):
+            if st.button("🔓 Decodificar QRGB", key="decode_btn", help="Decodificar un QRGB existente", type="primary"):
                 st.session_state.page = "decodificar"
     # Codificar QRGB
     elif st.session_state.page == "codificar":
@@ -414,7 +412,7 @@ def main():
                 else:
                     st.error("Completa todos los campos de texto.")
         with col_btn2:
-            if st.button("🔙 Volver", key="back_encode_btn", help="Volver al inicio", type="primary"):
+            if st.button("🏠 Volver", key="back_encode_btn", help="Volver al inicio", type="primary"):
                 st.session_state.page = "inicio"
     # Decodificar QRGB
     elif st.session_state.page == "decodificar":
@@ -450,7 +448,7 @@ def main():
                 except Exception as e:
                     st.error(f"Error al decodificar: {str(e)}")
         with col_btn2:
-            if st.button("🔙 Volver", key="back_decode_btn", help="Volver al inicio", type="primary"):
+            if st.button("🏠 Volver", key="back_decode_btn", help="Volver al inicio", type="primary"):
                 st.session_state.page = "inicio"
 
 if __name__ == '__main__':
