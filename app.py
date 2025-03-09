@@ -8,6 +8,9 @@ import logging
 from pathlib import Path
 from io import BytesIO
 
+# Configuración inicial de la página (DEBE SER LO PRIMERO)
+st.set_page_config(page_title="Generador QRGB", page_icon=":barcode:", layout="wide")
+
 # Configuración de paths
 BASE_PATH = os.path.dirname(os.path.abspath(__file__))
 FOLDER_PATH = os.path.join(BASE_PATH, 'qrgb_files')
@@ -21,6 +24,55 @@ logging.basicConfig(
     handlers=[logging.FileHandler(LOG_PATH), logging.StreamHandler()]
 )
 logger = logging.getLogger(__name__)
+
+# Estilos CSS para una interfaz profesional
+st.markdown("""
+    <style>
+    .stApp {
+        background-color: #f5f6fa;
+        font-family: 'Arial', sans-serif;
+    }
+    .title {
+        font-size: 36px;
+        font-weight: bold;
+        color: #2c3e50;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .subtitle {
+        font-size: 24px;
+        color: #34495e;
+        margin-top: 30px;
+    }
+    .stButton>button {
+        background-color: #3498db;
+        color: white;
+        border-radius: 8px;
+        font-size: 16px;
+        padding: 10px 20px;
+        width: 100%;
+        border: none;
+    }
+    .stButton>button:hover {
+        background-color: #2980b9;
+    }
+    .stTextInput>label {
+        font-size: 16px;
+        color: #2c3e50;
+    }
+    .stFileUploader>label {
+        font-size: 16px;
+        color: #2c3e50;
+    }
+    .result-box {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+    }
+    </style>
+""", unsafe_allow_html=True)
 
 # Funciones de QR (sin cambios)
 def create_qr_with_logo(data, color, logo_path, qr_version=10, box_size=10):
@@ -122,59 +174,8 @@ def manual_decode_superposed_qr(filename):
     data_blue = read_qr(os.path.join(FOLDER_PATH, "decoded_blue.png"))
     return data_red, data_green, data_blue
 
-# Estilos CSS para una interfaz profesional
-st.markdown("""
-    <style>
-    .stApp {
-        background-color: #f5f6fa;
-        font-family: 'Arial', sans-serif;
-    }
-    .title {
-        font-size: 36px;
-        font-weight: bold;
-        color: #2c3e50;
-        text-align: center;
-        margin-bottom: 20px;
-    }
-    .subtitle {
-        font-size: 24px;
-        color: #34495e;
-        margin-top: 30px;
-    }
-    .stButton>button {
-        background-color: #3498db;
-        color: white;
-        border-radius: 8px;
-        font-size: 16px;
-        padding: 10px 20px;
-        width: 100%;
-        border: none;
-    }
-    .stButton>button:hover {
-        background-color: #2980b9;
-    }
-    .stTextInput>label {
-        font-size: 16px;
-        color: #2c3e50;
-    }
-    .stFileUploader>label {
-        font-size: 16px;
-        color: #2c3e50;
-    }
-    .result-box {
-        background-color: #ffffff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        margin-top: 20px;
-    }
-    </style>
-""", unsafe_allow_html=True)
-
 # Interfaz principal
 def main():
-    st.set_page_config(page_title="Generador QRGB", page_icon=":barcode:", layout="wide")
-
     # Pantalla inicial
     if 'page' not in st.session_state:
         st.session_state.page = "inicio"
