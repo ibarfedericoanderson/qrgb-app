@@ -1,9 +1,4 @@
-# QRGB Generator
-# © 2025 Ibar Federico Anderson, Ph.D. M.Des., Industrial Designer. All rights reserved.
-#
-# This work is licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0).
-# To view a copy of this license, visit https://creativecommons.org/licenses/by/4.0/
-# 🔗 You are free to:
+to:
 #    • Share — copy and redistribute the material in any medium or format
 #    • Adapt — remix, transform, and build upon the material for any purpose, even commercially.
 # Under the following terms:
@@ -24,16 +19,13 @@ import webbrowser
 import logging
 from pathlib import Path
 from io import BytesIO
-
 # Configuración inicial de la página
 st.set_page_config(page_title="Generador QRGB", page_icon=":barcode:", layout="wide")
-
 # Configuración de paths
 BASE_PATH = os.path.dirname(os.path.abspath(__file__))
 FOLDER_PATH = os.path.join(BASE_PATH, 'qrgb_files')
 LOG_PATH = os.path.join(FOLDER_PATH, 'qrgb.log')
 os.makedirs(FOLDER_PATH, exist_ok=True)
-
 # Configuración de logging
 logging.basicConfig(
     level=logging.INFO,
@@ -41,7 +33,6 @@ logging.basicConfig(
     handlers=[logging.FileHandler(LOG_PATH), logging.StreamHandler()]
 )
 logger = logging.getLogger(__name__)
-
 # Estilos CSS mejorados
 st.markdown("""
     <style>
@@ -192,31 +183,29 @@ st.markdown("""
     .color-red {
         color: #e74c3c;
         font-weight: 700;
-        font-size: 26px;
+        font-size: 20px;
     }
     .color-green {
         color: #2ecc71;
         font-weight: 700;
-        font-size: 26px;
+        font-size: 20px;
     }
     .color-blue {
         color: #3498db;
         font-weight: 700;
-        font-size: 26px;
+        font-size: 20px;
     }
     .symbol {
-        font-size: 40px;
-        margin-right: 15px;
+        font-size: 24px;
+        margin-right: 10px;
     }
     </style>
 """, unsafe_allow_html=True)
-
 # Sección de presentación del creador
 def show_creator_profile():
     st.markdown('<div class="profile-box">', unsafe_allow_html=True)
     st.markdown('<h2>👤 About the Creator</h2>', unsafe_allow_html=True)
     st.markdown('<p>© 2025 <strong>Ibar Federico Anderson, Ph.D. M.Des., Industrial Designer</strong>. All rights reserved.</p>', unsafe_allow_html=True)
-    
     # Google Scholar con emoji de graduación
     st.markdown(
         '<p>'
@@ -224,7 +213,6 @@ def show_creator_profile():
         '</p>',
         unsafe_allow_html=True
     )
-    
     # ORCID (sin cambios)
     st.markdown(
         '<p>'
@@ -233,7 +221,6 @@ def show_creator_profile():
         '</p>',
         unsafe_allow_html=True
     )
-    
     # ResearchGate (sin cambios)
     st.markdown(
         '<p>'
@@ -242,7 +229,6 @@ def show_creator_profile():
         '</p>',
         unsafe_allow_html=True
     )
-    
     # Creative Commons con emoji de libro abierto
     st.markdown(
         '<p>'
@@ -251,7 +237,6 @@ def show_creator_profile():
         unsafe_allow_html=True
     )
     st.markdown('</div>', unsafe_allow_html=True)
-
 # Funciones de QR modificadas para logo opcional
 def create_qr(data, color, qr_version=10, box_size=10):
     qr = qrcode.QRCode(version=qr_version, error_correction=qrcode.constants.ERROR_CORRECT_H, box_size=box_size, border=4)
@@ -259,7 +244,6 @@ def create_qr(data, color, qr_version=10, box_size=10):
     qr.make(fit=True)
     img = qr.make_image(fill_color=color, back_color="white").convert('RGBA')
     return img
-
 def create_qr_with_logo(data, color, logo_path, qr_version=10, box_size=10):
     img = create_qr(data, color, qr_version, box_size)
     if logo_path and os.path.exists(logo_path):
@@ -271,7 +255,6 @@ def create_qr_with_logo(data, color, logo_path, qr_version=10, box_size=10):
         pos = ((img.size[0] - logo.size[0]) // 2, (img.size[1] - logo.size[1]) // 2)
         img.paste(logo, pos, logo)
     return img
-
 def combine_qr_images(img1, img2, img3, logo_path=None):
     size = img1.size
     if img2.size != size or img3.size != size:
@@ -312,7 +295,6 @@ def combine_qr_images(img1, img2, img3, logo_path=None):
         pos = ((final_image.size[0] - logo.size[0]) // 2, (final_image.size[1] - logo.size[1]) // 2)
         final_image.paste(logo, pos, logo)
     return final_image
-
 def generate_qrgb(red_data, green_data, blue_data, logo_path=None, mode='link'):
     qr_version = 10 if mode == 'link' else 3
     box_size = 10 if mode == 'link' else 20
@@ -327,13 +309,11 @@ def generate_qrgb(red_data, green_data, blue_data, logo_path=None, mode='link'):
     combined_img = combine_qr_images(img_red, img_green, img_blue, logo_path)
     combined_img.save(os.path.join(FOLDER_PATH, "superposed_qr.png"))
     return combined_img
-
 def read_qr(filename):
     img = cv2.imread(filename)
     detector = cv2.QRCodeDetector()
     data, vertices_array, _ = detector.detectAndDecode(img)
     return data if vertices_array is not None else None
-
 def manual_decode_superposed_qr(filename):
     superposed_img = Image.open(filename)
     superposed_data = superposed_img.getdata()
@@ -357,7 +337,6 @@ def manual_decode_superposed_qr(filename):
     data_green = read_qr(os.path.join(FOLDER_PATH, "decoded_green.png"))
     data_blue = read_qr(os.path.join(FOLDER_PATH, "decoded_blue.png"))
     return data_red, data_green, data_blue
-
 # Interfaz principal
 def main():
     # Mostrar perfil del creador
@@ -450,6 +429,5 @@ def main():
         with col_btn2:
             if st.button("🏠 Volver", key="back_decode_btn", help="Volver al inicio", type="primary"):
                 st.session_state.page = "inicio"
-
 if __name__ == '__main__':
     main()
