@@ -198,24 +198,24 @@ st.markdown("""
 def show_creator_profile():
     st.markdown('<div class="profile-box">', unsafe_allow_html=True)
     st.markdown('<h2>👤 Autor:</h2>', unsafe_allow_html=True)
-    st.markdown('<p>© 2025 <strong>Ibar Federico Anderson, Ph.D. M.Des., Industrial Designer</strong>. All rights reserved.</p>', unsafe_allow_html=True)
+    st.markdown('<p>© 2025 <strong>Ibar Federico Anderson, Ph.D., Master, Industrial Designer</strong>. All rights reserved.</p>', unsafe_allow_html=True)
     st.markdown(
         '<p>'
-        '🎓 <strong>Google Scholar:</strong> <a href="https://scholar.google.com/citations?user=mXD4RFUAAAAJ&hl=en" target="_blank">Visit Profile</a>'
+        '🎓 <strong>Google Scholar:</strong> <a href="https://scholar.google.com/citations?user=mXD4RFUAAAAJ&hl=en" target="_blank">Visite Perfil</a>'
         '</p>',
         unsafe_allow_html=True
     )
     st.markdown(
         '<p>'
         '<img src="https://upload.wikimedia.org/wikipedia/commons/0/06/ORCID_iD.svg" width="20" height="20" style="vertical-align: middle; margin-right: 10px;">'
-        '<strong>ORCID:</strong> <a href="https://orcid.org/0000-0002-9732-3660" target="_blank">Visit Profile</a>'
+        '<strong>ORCID:</strong> <a href="https://orcid.org/0000-0002-9732-3660" target="_blank">Visite Perfil</a>'
         '</p>',
         unsafe_allow_html=True
     )
     st.markdown(
         '<p>'
         '<img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/ResearchGate_icon_SVG.svg" width="20" height="20" style="vertical-align: middle; margin-right: 10px;">'
-        '<strong>Research Gate:</strong> <a href="https://www.researchgate.net/profile/Ibar-Anderson" target="_blank">Visit Profile</a>'
+        '<strong>Research Gate:</strong> <a href="https://www.researchgate.net/profile/Ibar-Anderson" target="_blank">Visite Perfil</a>'
         '</p>',
         unsafe_allow_html=True
     )
@@ -348,7 +348,7 @@ def main():
         st.session_state.page = "inicio"
     if st.session_state.page == "inicio":
         st.markdown('<div class="title">Generador QRGB</div>', unsafe_allow_html=True)
-        st.write("Codifica y Decodifica Códigos QRGB.")
+        st.write("Codifica QRGB.")
         col1, col2 = st.columns(2)
         with col1:
             if st.button("🔒 Codificar QRGB", key="encode_btn", help="Codificar un nuevo QRGB", type="primary"):
