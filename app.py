@@ -248,9 +248,17 @@ def create_qr_with_logo(data, color, logo_path, qr_version=10, box_size=10):
     return img
 
 def combine_qr_images(img1, img2, img3, logo_path=None):
+    # Aseguramos que todas las imágenes tengan el mismo tamaño
     size = img1.size
+    if img2.size != size:
+        img2 = img2.resize(size)
+    if img3.size != size:
+        img3 = img3.resize(size)
+        
     final_image = Image.new("RGBA", size, "black")
-    data_red, data_green, data_blue = img1.getdata(), img2.getdata(), img3.getdata()
+    data_red = img1.getdata()
+    data_green = img2.getdata()
+    data_blue = img3.getdata()
     new_data = []
     for i in range(len(data_red)):
         r1, g1, b1, a1 = data_red[i]
@@ -426,3 +434,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
