@@ -34,102 +34,74 @@ st.markdown("""
     }
     .title {
         font-size: 36px;
-        font-weight: bold;
+        font-weight: 800;
         color: #2c3e50;
         text-align: center;
-        margin-bottom: 20px;
+        margin-bottom: 30px;
     }
     .subtitle {
         font-size: 24px;
-        font-weight: bold;
+        font-weight: 700;
         color: #34495e;
         margin-top: 30px;
         margin-bottom: 20px;
     }
     .stButton>button {
         border-radius: 12px;
-        font-size: 18px;
-        font-weight: bold;
+        font-size: 20px;
+        font-weight: 700;
         padding: 15px 30px;
         width: 100%;
         border: none;
-        transition: background-color 0.3s ease;
+        transition: all 0.3s ease;
     }
-    .btn-encode {
+    [data-testid="stButton"][kind="primary"] {
         background-color: #3498db !important;
         color: white !important;
     }
-    .btn-encode:hover {
-        background-color: #2980b9 !important;
-    }
-    .btn-decode {
+    [data-testid="stButton"][kind="secondary"] {
         background-color: #2ecc71 !important;
         color: white !important;
-    }
-    .btn-decode:hover {
-        background-color: #27ae60 !important;
     }
     .btn-back {
         background-color: #95a5a6 !important;
         color: white !important;
     }
-    .btn-back:hover {
-        background-color: #7f8c8d !important;
-    }
     .btn-url-red {
         background-color: #e74c3c !important;
         color: white !important;
-    }
-    .btn-url-red:hover {
-        background-color: #c0392b !important;
     }
     .btn-url-green {
         background-color: #2ecc71 !important;
         color: white !important;
     }
-    .btn-url-green:hover {
-        background-color: #27ae60 !important;
-    }
     .btn-url-blue {
         background-color: #3498db !important;
         color: white !important;
     }
-    .btn-url-blue:hover {
-        background-color: #2980b9 !important;
-    }
-    .stTextInput>label {
-        font-size: 16px;
-        color: #2c3e50;
-    }
-    .stFileUploader>label {
-        font-size: 16px;
+    .stTextInput>label, .stFileUploader>label {
+        font-size: 18px;
+        font-weight: 600;
         color: #2c3e50;
     }
     .result-box {
-        background-color: #ffffff;
+        background-color: #f8f9fa;
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         margin-top: 20px;
     }
-    .icon-large {
-        font-size: 24px;
-        margin-right: 10px;
-    }
-    .stMarkdown {
-        margin-bottom: 20px;
-    }
     .color-red {
-        color: #e74c3c;
-        font-weight: bold;
+        color: #e74c3c !important;
+        font-weight: 700;
     }
     .color-green {
-        color: #2ecc71;
-        font-weight: bold;
+        color: #2ecc71 !important;
+        font-weight: 700;
     }
     .color-blue {
-        color: #3498db;
-        font-weight: bold;
+        color: #3498db !important;
+        font-weight: 700;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -238,18 +210,18 @@ def main():
         st.session_state.page = "inicio"
     if st.session_state.page == "inicio":
         st.markdown('<div class="title">Generador QRGB</div>', unsafe_allow_html=True)
-        st.write("Crea y decodifica códigos QR RGB con un diseño profesional y minimalista.")
+        st.write("Crea y decodifica códigos QRGB con un diseño profesional y minimalista.")
         col1, col2 = st.columns(2)
         with col1:
-            if st.button("🔒 Codificar QRGB", key="encode_btn", help="Codificar un nuevo QR RGB", use_container_width=True):
+            if st.button("🔒 Codificar QRGB", key="encode_btn", help="Codificar un nuevo QRGB", type="primary"):
                 st.session_state.page = "codificar"
         with col2:
-            if st.button("🔓 Decodificar QRGB", key="decode_btn", help="Decodificar un QR RGB existente", use_container_width=True):
+            if st.button("🔓 Decodificar QRGB", key="decode_btn", help="Decodificar un QRGB existente", type="secondary"):
                 st.session_state.page = "decodificar"
     # Codificar QR
     elif st.session_state.page == "codificar":
-        st.markdown('<div class="subtitle">Codificar QR RGB</div>', unsafe_allow_html=True)
-        st.write("Ingresa los datos y sube un logo para generar tu QR personalizado.")
+        st.markdown('<div class="subtitle">Codificar QRGB</div>', unsafe_allow_html=True)
+        st.write("Ingresa los datos y sube un logo para generar tu QRGB personalizado.")
         col1, col2 = st.columns([2, 1])
         with col1:
             red_data = st.text_input("🔴 Capa Roja", placeholder="Texto o URL", key="red_input")
@@ -259,7 +231,7 @@ def main():
             logo_file = st.file_uploader("📂 Cargar Logo", type=['png', 'jpg', 'jpeg'], key="logo_upload")
         col_btn1, col_btn2 = st.columns([1, 1])
         with col_btn1:
-            if st.button("📥 Generar QR", key="generate_btn", help="Generar el QR RGB con los datos proporcionados", use_container_width=True):
+            if st.button("📥 Generar QRGB", key="generate_btn", help="Generar el QRGB con los datos proporcionados", type="primary"):
                 if logo_file and all([red_data, green_data, blue_data]):
                     try:
                         logo_path = os.path.join(FOLDER_PATH, "temp_logo.png")
@@ -267,13 +239,13 @@ def main():
                             f.write(logo_file.getbuffer())
                         mode = 'link' if any('http' in text.lower() for text in [red_data, green_data, blue_data]) else 'text'
                         combined_img = generate_qrgb(red_data, green_data, blue_data, logo_path, mode)
-                        st.image(combined_img, caption="QR RGB Generado", width=400)
-                        st.success("¡QR generado con éxito!")
+                        st.image(combined_img, caption="QRGB Generado", width=400)
+                        st.success("¡QRGB generado con éxito!")
                         # Descarga
                         buf = BytesIO()
                         combined_img.save(buf, format="PNG")
                         byte_im = buf.getvalue()
-                        st.download_button(label="💾 Descargar QR", data=byte_im, file_name="qrgb.png", mime="image/png", key="download_btn", use_container_width=True)
+                        st.download_button(label="💾 Descargar QRGB", data=byte_im, file_name="qrgb.png", mime="image/png", key="download_btn")
                         os.remove(logo_path)
                     except Exception as e:
                         logger.error(f"Error generating QRGB: {str(e)}")
@@ -281,40 +253,43 @@ def main():
                 else:
                     st.error("Completa todos los campos y sube un logo.")
         with col_btn2:
-            if st.button("🏠 Volver", key="back_encode_btn", help="Volver al inicio", use_container_width=True):
+            if st.button("🏠 Volver", key="back_encode_btn", help="Volver al inicio", type="secondary"):
                 st.session_state.page = "inicio"
     # Decodificar QR
     elif st.session_state.page == "decodificar":
-        st.markdown('<div class="subtitle">Decodificar QR RGB</div>', unsafe_allow_html=True)
-        st.write("Sube un QR RGB para extraer la información de cada capa.")
-        qr_file = st.file_uploader("📂 Cargar QR RGB", type=['png'], key="qr_upload")
+        st.markdown('<div class="subtitle">Decodificar QRGB</div>', unsafe_allow_html=True)
+        st.write("Sube un QRGB para extraer la información de cada capa.")
+        qr_file = st.file_uploader("📂 Cargar QRGB", type=['png'], key="qr_upload")
         col_btn1, col_btn2 = st.columns([1, 1])
         with col_btn1:
-            if qr_file and st.button("🔍 Decodificar QR", key="decode_qr_btn", help="Decodificar el QR RGB cargado", use_container_width=True):
+            if qr_file and st.button("🔍 Decodificar QRGB", key="decode_qr_btn", help="Decodificar el QRGB cargado", type="primary"):
                 try:
                     qr_path = os.path.join(FOLDER_PATH, "temp_qr.png")
                     with open(qr_path, "wb") as f:
                         f.write(qr_file.getbuffer())
                     data_red, data_green, data_blue = manual_decode_superposed_qr(qr_path)
-                    st.image(qr_path, caption="QR RGB Cargado", width=400)
+                    st.image(qr_path, caption="QRGB Cargado", width=400)
                     with st.container():
                         st.markdown('<div class="result-box">', unsafe_allow_html=True)
                         st.write("**Resultados:**")
                         st.markdown(f"- **<span class='color-red'>🔴 Capa Roja:</span>** {data_red}", unsafe_allow_html=True)
                         if data_red and ('http://' in data_red or 'https://' in data_red):
-                            if st.button("🔗 Abrir URL Roja", key="url_red_btn", help="Abrir la URL de la capa roja", use_container_width=True, type="primary", className="btn-url-red"): webbrowser.open(data_red)
+                            if st.button("🔗 Abrir URL Roja", key="url_red_btn", help="Abrir la URL de la capa roja"):
+                                webbrowser.open(data_red)
                         st.markdown(f"- **<span class='color-green'>🟢 Capa Verde:</span>** {data_green}", unsafe_allow_html=True)
                         if data_green and ('http://' in data_green or 'https://' in data_green):
-                            if st.button("🔗 Abrir URL Verde", key="url_green_btn", help="Abrir la URL de la capa verde", use_container_width=True, type="primary", className="btn-url-green"): webbrowser.open(data_green)
+                            if st.button("🔗 Abrir URL Verde", key="url_green_btn", help="Abrir la URL de la capa verde"):
+                                webbrowser.open(data_green)
                         st.markdown(f"- **<span class='color-blue'>🔵 Capa Azul:</span>** {data_blue}", unsafe_allow_html=True)
                         if data_blue and ('http://' in data_blue or 'https://' in data_blue):
-                            if st.button("🔗 Abrir URL Azul", key="url_blue_btn", help="Abrir la URL de la capa azul", use_container_width=True, type="primary", className="btn-url-blue"): webbrowser.open(data_blue)
+                            if st.button("🔗 Abrir URL Azul", key="url_blue_btn", help="Abrir la URL de la capa azul"):
+                                webbrowser.open(data_blue)
                         st.markdown('</div>', unsafe_allow_html=True)
                     os.remove(qr_path)
                 except Exception as e:
                     st.error(f"Error al decodificar: {str(e)}")
         with col_btn2:
-            if st.button("🏠 Volver", key="back_decode_btn", help="Volver al inicio", use_container_width=True):
+            if st.button("🏠 Volver", key="back_decode_btn", help="Volver al inicio", type="secondary"):
                 st.session_state.page = "inicio"
 
 if __name__ == '__main__':
