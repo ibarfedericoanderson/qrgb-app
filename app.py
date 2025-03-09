@@ -3,7 +3,7 @@
 #
 # This work is licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0).
 # To view a copy of this license, visit https://creativecommons.org/licenses/by/4.0/
-# 🔍 You are free to:
+# 🔗 You are free to:
 #    • Share — copy and redistribute the material in any medium or format
 #    • Adapt — remix, transform, and build upon the material for any purpose, even commercially.
 # Under the following terms:
@@ -15,7 +15,6 @@
 #    [Icono ORCID] ORCID - https://orcid.org/0000-0002-9732-3660
 #    [Icono ResearchGate] ResearchGate - https://www.researchgate.net/profile/Ibar-Anderson
 # Symbols: © (Copyright) | CC (Creative Commons) | BY (Attribution)
-
 import streamlit as st
 from PIL import Image
 import qrcode
@@ -218,20 +217,16 @@ def show_creator_profile():
     st.markdown('<h2>👤 About the Creator</h2>', unsafe_allow_html=True)
     st.markdown('<p>© 2025 <strong>Ibar Federico Anderson, Ph.D. M.Des., Industrial Designer</strong>. All rights reserved.</p>', unsafe_allow_html=True)
     
-   def show_creator_profile():
-    st.markdown('<div class="profile-box">', unsafe_allow_html=True)
-    st.markdown('<h2>👤 About the Creator</h2>', unsafe_allow_html=True)
-    st.markdown('<p>© 2025 <strong>Ibar Federico Anderson, Ph.D. M.Des., Industrial Designer</strong>. All rights reserved.</p>', unsafe_allow_html=True)
-    
-    # Google Scholar con ícono emoji
+    # Google Scholar con icono actualizado
     st.markdown(
         '<p>'
-        '🎓 <strong>Google Scholar:</strong> <a href="https://scholar.google.com/citations?user=mXD4RFUAAAAJ&hl=en" target="_blank">Visit Profile</a>'
+        '<img src="https://commons.wikimedia.org/wiki/File:Google_Scholar_logo.svg" width="20" height="20" style="vertical-align: middle; margin-right: 10px;">'
+        '<strong>Google Scholar:</strong> <a href="https://scholar.google.com/citations?user=mXD4RFUAAAAJ&hl=en" target="_blank">Visit Profile</a>'
         '</p>',
         unsafe_allow_html=True
     )
     
-    # ORCID (sin cambios, ya funciona bien)
+    # ORCID (sin cambios)
     st.markdown(
         '<p>'
         '<img src="https://upload.wikimedia.org/wikipedia/commons/0/06/ORCID_iD.svg" width="20" height="20" style="vertical-align: middle; margin-right: 10px;">'
@@ -240,7 +235,7 @@ def show_creator_profile():
         unsafe_allow_html=True
     )
     
-    # ResearchGate (sin cambios, ya funciona bien)
+    # ResearchGate (sin cambios)
     st.markdown(
         '<p>'
         '<img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/ResearchGate_icon_SVG.svg" width="20" height="20" style="vertical-align: middle; margin-right: 10px;">'
@@ -249,10 +244,11 @@ def show_creator_profile():
         unsafe_allow_html=True
     )
     
-    # Creative Commons con ícono emoji
+    # Creative Commons con icono actualizado
     st.markdown(
         '<p>'
-        '🌐 <strong>Creative Commons:</strong> This work is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0 License</a>.'
+        '<img src="https://diff.wikimedia.org/wp-content/uploads/2023/06/Creative-Commons-Attribution-ShareAlike-badge.png?w=1024" width="20" height="20" style="vertical-align: middle; margin-right: 10px;">'
+        '<strong>Creative Commons:</strong> This work is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0 License</a>.'
         '</p>',
         unsafe_allow_html=True
     )
@@ -368,7 +364,6 @@ def manual_decode_superposed_qr(filename):
 def main():
     # Mostrar perfil del creador
     show_creator_profile()
-
     # Pantalla inicial
     if 'page' not in st.session_state:
         st.session_state.page = "inicio"
@@ -377,10 +372,10 @@ def main():
         st.write("Crea y decodifica códigos QRGB con un diseño profesional y minimalista.")
         col1, col2 = st.columns(2)
         with col1:
-            if st.button("🔒 Codificar QRGB", key="encode_btn", help="Codificar un nuevo QRGB", type="primary"):
+            if st.button("🔑 Codificar QRGB", key="encode_btn", help="Codificar un nuevo QRGB", type="primary"):
                 st.session_state.page = "codificar"
         with col2:
-            if st.button("🔓 Decodificar QRGB", key="decode_btn", help="Decodificar un QRGB existente", type="primary"):
+            if st.button("🔍 Decodificar QRGB", key="decode_btn", help="Decodificar un QRGB existente", type="primary"):
                 st.session_state.page = "decodificar"
     # Codificar QRGB
     elif st.session_state.page == "codificar":
@@ -388,11 +383,11 @@ def main():
         st.write("Ingresa los datos y sube un logo (opcional) para generar tu QRGB personalizado.")
         col1, col2 = st.columns([2, 1])
         with col1:
-            red_data = st.text_input("🔴 Capa Roja", placeholder="Texto o URL", key="red_input")
-            green_data = st.text_input("🔴 Capa Verde", placeholder="Texto o URL", key="green_input")
-            blue_data = st.text_input("🔴 Capa Azul", placeholder="Texto o URL", key="blue_input")
+            red_data = st.text_input("🔗 Capa Roja", placeholder="Texto o URL", key="red_input")
+            green_data = st.text_input("🔗 Capa Verde", placeholder="Texto o URL", key="green_input")
+            blue_data = st.text_input("🔗 Capa Azul", placeholder="Texto o URL", key="blue_input")
         with col2:
-            logo_file = st.file_uploader("📂 Cargar Logo (Opcional)", type=['png', 'jpg', 'jpeg'], key="logo_upload")
+            logo_file = st.file_uploader("🖼️ Cargar Logo (Opcional)", type=['png', 'jpg', 'jpeg'], key="logo_upload")
         col_btn1, col_btn2 = st.columns([1, 1])
         with col_btn1:
             if st.button("📥 Generar QRGB", key="generate_btn", help="Generar el QRGB con los datos proporcionados", type="primary"):
@@ -419,13 +414,13 @@ def main():
                 else:
                     st.error("Completa todos los campos de texto.")
         with col_btn2:
-            if st.button("🏠 Volver", key="back_encode_btn", help="Volver al inicio", type="primary"):
+            if st.button("🔙 Volver", key="back_encode_btn", help="Volver al inicio", type="primary"):
                 st.session_state.page = "inicio"
     # Decodificar QRGB
     elif st.session_state.page == "decodificar":
         st.markdown('<div class="subtitle">Decodificar QRGB</div>', unsafe_allow_html=True)
         st.write("Sube un QRGB para extraer la información de cada capa.")
-        qr_file = st.file_uploader("📂 Cargar QRGB", type=['png'], key="qr_upload")
+        qr_file = st.file_uploader("🖼️ Cargar QRGB", type=['png'], key="qr_upload")
         col_btn1, col_btn2 = st.columns([1, 1])
         with col_btn1:
             if qr_file and st.button("🔍 Analizar QRGB", key="decode_qr_btn", help="Decodificar el QRGB cargado", type="primary"):
@@ -438,24 +433,24 @@ def main():
                     with st.container():
                         st.markdown('<div class="result-box">', unsafe_allow_html=True)
                         st.write("**Resultados:**")
-                        st.markdown(f'<span class="color-red"><span class="symbol">🔴</span> Capa Roja:</span> {data_red}', unsafe_allow_html=True)
+                        st.markdown(f'<span class="color-red"><span class="symbol">🔗</span> Capa Roja:</span> {data_red}', unsafe_allow_html=True)
                         if data_red and ('http://' in data_red or 'https://' in data_red):
-                            if st.button("🔗 Abrir URL Roja", key="url_red_btn", help="Abrir la URL de la capa roja", type="primary"):
+                            if st.button("🌐 Abrir URL Roja", key="url_red_btn", help="Abrir la URL de la capa roja", type="primary"):
                                 webbrowser.open(data_red)
-                        st.markdown(f'<span class="color-green"><span class="symbol">🔴</span> Capa Verde:</span> {data_green}', unsafe_allow_html=True)
+                        st.markdown(f'<span class="color-green"><span class="symbol">🔗</span> Capa Verde:</span> {data_green}', unsafe_allow_html=True)
                         if data_green and ('http://' in data_green or 'https://' in data_green):
-                            if st.button("🔗 Abrir URL Verde", key="url_green_btn", help="Abrir la URL de la capa verde", type="primary"):
+                            if st.button("🌐 Abrir URL Verde", key="url_green_btn", help="Abrir la URL de la capa verde", type="primary"):
                                 webbrowser.open(data_green)
-                        st.markdown(f'<span class="color-blue"><span class="symbol">🔴</span> Capa Azul:</span> {data_blue}', unsafe_allow_html=True)
+                        st.markdown(f'<span class="color-blue"><span class="symbol">🔗</span> Capa Azul:</span> {data_blue}', unsafe_allow_html=True)
                         if data_blue and ('http://' in data_blue or 'https://' in data_blue):
-                            if st.button("🔗 Abrir URL Azul", key="url_blue_btn", help="Abrir la URL de la capa azul", type="primary"):
+                            if st.button("🌐 Abrir URL Azul", key="url_blue_btn", help="Abrir la URL de la capa azul", type="primary"):
                                 webbrowser.open(data_blue)
                         st.markdown('</div>', unsafe_allow_html=True)
                     os.remove(qr_path)
                 except Exception as e:
                     st.error(f"Error al decodificar: {str(e)}")
         with col_btn2:
-            if st.button("🏠 Volver", key="back_decode_btn", help="Volver al inicio", type="primary"):
+            if st.button("🔙 Volver", key="back_decode_btn", help="Volver al inicio", type="primary"):
                 st.session_state.page = "inicio"
 
 if __name__ == '__main__':
