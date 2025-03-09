@@ -1,15 +1,3 @@
-to:
-#    • Share — copy and redistribute the material in any medium or format
-#    • Adapt — remix, transform, and build upon the material for any purpose, even commercially.
-# Under the following terms:
-#    • Attribution — You must give appropriate credit, provide a link to the license, and indicate if changes were made.
-#    • No additional restrictions — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.
-#
-# Author Profiles:
-#    [Icono Google Scholar] Google Scholar - https://scholar.google.com/citations?user=mXD4RFUAAAAJ&hl=en
-#    [Icono ORCID] ORCID - https://orcid.org/0000-0002-9732-3660
-#    [Icono ResearchGate] ResearchGate - https://www.researchgate.net/profile/Ibar-Anderson
-# Symbols: © (Copyright) | CC (Creative Commons) | BY (Attribution)
 import streamlit as st
 from PIL import Image
 import qrcode
@@ -19,13 +7,16 @@ import webbrowser
 import logging
 from pathlib import Path
 from io import BytesIO
+
 # Configuración inicial de la página
 st.set_page_config(page_title="Generador QRGB", page_icon=":barcode:", layout="wide")
+
 # Configuración de paths
 BASE_PATH = os.path.dirname(os.path.abspath(__file__))
 FOLDER_PATH = os.path.join(BASE_PATH, 'qrgb_files')
 LOG_PATH = os.path.join(FOLDER_PATH, 'qrgb.log')
 os.makedirs(FOLDER_PATH, exist_ok=True)
+
 # Configuración de logging
 logging.basicConfig(
     level=logging.INFO,
@@ -33,6 +24,7 @@ logging.basicConfig(
     handlers=[logging.FileHandler(LOG_PATH), logging.StreamHandler()]
 )
 logger = logging.getLogger(__name__)
+
 # Estilos CSS mejorados
 st.markdown("""
     <style>
@@ -201,19 +193,18 @@ st.markdown("""
     }
     </style>
 """, unsafe_allow_html=True)
+
 # Sección de presentación del creador
 def show_creator_profile():
     st.markdown('<div class="profile-box">', unsafe_allow_html=True)
     st.markdown('<h2>👤 About the Creator</h2>', unsafe_allow_html=True)
     st.markdown('<p>© 2025 <strong>Ibar Federico Anderson, Ph.D. M.Des., Industrial Designer</strong>. All rights reserved.</p>', unsafe_allow_html=True)
-    # Google Scholar con emoji de graduación
     st.markdown(
         '<p>'
         '🎓 <strong>Google Scholar:</strong> <a href="https://scholar.google.com/citations?user=mXD4RFUAAAAJ&hl=en" target="_blank">Visit Profile</a>'
         '</p>',
         unsafe_allow_html=True
     )
-    # ORCID (sin cambios)
     st.markdown(
         '<p>'
         '<img src="https://upload.wikimedia.org/wikipedia/commons/0/06/ORCID_iD.svg" width="20" height="20" style="vertical-align: middle; margin-right: 10px;">'
@@ -221,7 +212,6 @@ def show_creator_profile():
         '</p>',
         unsafe_allow_html=True
     )
-    # ResearchGate (sin cambios)
     st.markdown(
         '<p>'
         '<img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/ResearchGate_icon_SVG.svg" width="20" height="20" style="vertical-align: middle; margin-right: 10px;">'
@@ -229,7 +219,6 @@ def show_creator_profile():
         '</p>',
         unsafe_allow_html=True
     )
-    # Creative Commons con emoji de libro abierto
     st.markdown(
         '<p>'
         '📖 <strong>Creative Commons:</strong> This work is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0 License</a>.'
@@ -237,6 +226,7 @@ def show_creator_profile():
         unsafe_allow_html=True
     )
     st.markdown('</div>', unsafe_allow_html=True)
+
 # Funciones de QR modificadas para logo opcional
 def create_qr(data, color, qr_version=10, box_size=10):
     qr = qrcode.QRCode(version=qr_version, error_correction=qrcode.constants.ERROR_CORRECT_H, box_size=box_size, border=4)
@@ -244,6 +234,7 @@ def create_qr(data, color, qr_version=10, box_size=10):
     qr.make(fit=True)
     img = qr.make_image(fill_color=color, back_color="white").convert('RGBA')
     return img
+
 def create_qr_with_logo(data, color, logo_path, qr_version=10, box_size=10):
     img = create_qr(data, color, qr_version, box_size)
     if logo_path and os.path.exists(logo_path):
@@ -255,10 +246,9 @@ def create_qr_with_logo(data, color, logo_path, qr_version=10, box_size=10):
         pos = ((img.size[0] - logo.size[0]) // 2, (img.size[1] - logo.size[1]) // 2)
         img.paste(logo, pos, logo)
     return img
+
 def combine_qr_images(img1, img2, img3, logo_path=None):
     size = img1.size
-    if img2.size != size or img3.size != size:
-        raise ValueError("All QR images must be the same size")
     final_image = Image.new("RGBA", size, "black")
     data_red, data_green, data_blue = img1.getdata(), img2.getdata(), img3.getdata()
     new_data = []
@@ -295,6 +285,7 @@ def combine_qr_images(img1, img2, img3, logo_path=None):
         pos = ((final_image.size[0] - logo.size[0]) // 2, (final_image.size[1] - logo.size[1]) // 2)
         final_image.paste(logo, pos, logo)
     return final_image
+
 def generate_qrgb(red_data, green_data, blue_data, logo_path=None, mode='link'):
     qr_version = 10 if mode == 'link' else 3
     box_size = 10 if mode == 'link' else 20
@@ -309,11 +300,13 @@ def generate_qrgb(red_data, green_data, blue_data, logo_path=None, mode='link'):
     combined_img = combine_qr_images(img_red, img_green, img_blue, logo_path)
     combined_img.save(os.path.join(FOLDER_PATH, "superposed_qr.png"))
     return combined_img
+
 def read_qr(filename):
     img = cv2.imread(filename)
     detector = cv2.QRCodeDetector()
     data, vertices_array, _ = detector.detectAndDecode(img)
     return data if vertices_array is not None else None
+
 def manual_decode_superposed_qr(filename):
     superposed_img = Image.open(filename)
     superposed_data = superposed_img.getdata()
@@ -337,6 +330,7 @@ def manual_decode_superposed_qr(filename):
     data_green = read_qr(os.path.join(FOLDER_PATH, "decoded_green.png"))
     data_blue = read_qr(os.path.join(FOLDER_PATH, "decoded_blue.png"))
     return data_red, data_green, data_blue
+
 # Interfaz principal
 def main():
     # Mostrar perfil del creador
@@ -387,7 +381,7 @@ def main():
                             os.remove(logo_path)
                     except Exception as e:
                         logger.error(f"Error generating QRGB: {str(e)}")
-                        st.error(f"Error: {str(e)}")
+                        st.error(f"Error al generar QRGB: {str(e)}")
                 else:
                     st.error("Completa todos los campos de texto.")
         with col_btn2:
@@ -429,5 +423,6 @@ def main():
         with col_btn2:
             if st.button("🏠 Volver", key="back_decode_btn", help="Volver al inicio", type="primary"):
                 st.session_state.page = "inicio"
+
 if __name__ == '__main__':
     main()
