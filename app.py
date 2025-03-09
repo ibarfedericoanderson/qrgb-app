@@ -291,8 +291,8 @@ def main():
         col1, col2 = st.columns([2, 1])
         with col1:
             red_data = st.text_input("🔴 Capa Roja", placeholder="Texto o URL", key="red_input")
-            green_data = st.text_input("🟢 Capa Verde", placeholder="Texto o URL", key="green_input")
-            blue_data = st.text_input("🔵 Capa Azul", placeholder="Texto o URL", key="blue_input")
+            green_data = st.text_input("🔴 Capa Verde", placeholder="Texto o URL", key="green_input")
+            blue_data = st.text_input("🔴 Capa Azul", placeholder="Texto o URL", key="blue_input")
         with col2:
             logo_file = st.file_uploader("📂 Cargar Logo (Opcional)", type=['png', 'jpg', 'jpeg'], key="logo_upload")
         col_btn1, col_btn2 = st.columns([1, 1])
@@ -344,11 +344,11 @@ def main():
                         if data_red and ('http://' in data_red or 'https://' in data_red):
                             if st.button("🔗 Abrir URL Roja", key="url_red_btn", help="Abrir la URL de la capa roja", type="primary"):
                                 webbrowser.open(data_red)
-                        st.markdown(f'<span class="color-green"><span class="symbol">🟢</span> Capa Verde:</span> {data_green}', unsafe_allow_html=True)
+                        st.markdown(f'<span class="color-green"><span class="symbol">🔴</span> Capa Verde:</span> {data_green}', unsafe_allow_html=True)
                         if data_green and ('http://' in data_green or 'https://' in data_green):
                             if st.button("🔗 Abrir URL Verde", key="url_green_btn", help="Abrir la URL de la capa verde", type="primary"):
                                 webbrowser.open(data_green)
-                        st.markdown(f'<span class="color-blue"><span class="symbol">🔵</span> Capa Azul:</span> {data_blue}', unsafe_allow_html=True)
+                        st.markdown(f'<span class="color-blue"><span class="symbol">🔴</span> Capa Azul:</span> {data_blue}', unsafe_allow_html=True)
                         if data_blue and ('http://' in data_blue or 'https://' in data_blue):
                             if st.button("🔗 Abrir URL Azul", key="url_blue_btn", help="Abrir la URL de la capa azul", type="primary"):
                                 webbrowser.open(data_blue)
