@@ -217,15 +217,15 @@ def show_creator_profile():
     st.markdown('<h2>👤 About the Creator</h2>', unsafe_allow_html=True)
     st.markdown('<p>© 2025 <strong>Ibar Federico Anderson, Ph.D. M.Des., Industrial Designer</strong>. All rights reserved.</p>', unsafe_allow_html=True)
     
-  # Google Scholar con icono actualizado
-st.markdown(
-    '<p>'
-    '<img src="https://commons.wikimedia.org/wiki/File:Google_Scholar_logo.svg" width="25" height="25" style="vertical-align: middle; margin-right: 10px;">'
-    '<strong>Google Scholar:</strong> <a href="https://scholar.google.com/citations?user=mXD4RFUAAAAJ&hl=en" target="_blank">Visit Profile</a>'
-    '</p>',
-    unsafe_allow_html=True
-)
-
+    # Google Scholar con icono actualizado
+    st.markdown(
+        '<p>'
+        '<img src="https://commons.wikimedia.org/wiki/File:Google_Scholar_logo.svg" width="20" height="20" style="vertical-align: middle; margin-right: 10px;">'
+        '<strong>Google Scholar:</strong> <a href="https://scholar.google.com/citations?user=mXD4RFUAAAAJ&hl=en" target="_blank">Visit Profile</a>'
+        '</p>',
+        unsafe_allow_html=True
+    )
+    
     # ORCID (sin cambios)
     st.markdown(
         '<p>'
@@ -244,15 +244,15 @@ st.markdown(
         unsafe_allow_html=True
     )
     
-
-# Creative Commons con ícono ajustado (más alargado)
-st.markdown(
-    '<p>'
-    '<img src="https://diff.wikimedia.org/wp-content/uploads/2023/06/Creative-Commons-Attribution-ShareAlike-badge.png?w=1024" width="100" height="25" style="vertical-align: middle; margin-right: 10px;">'
-    '<strong>Creative Commons:</strong> This work is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0 License</a>.'
-    '</p>',
-    unsafe_allow_html=True
-)
+    # Creative Commons con icono actualizado
+    st.markdown(
+        '<p>'
+        '<img src="https://diff.wikimedia.org/wp-content/uploads/2023/06/Creative-Commons-Attribution-ShareAlike-badge.png?w=1024" width="20" height="20" style="vertical-align: middle; margin-right: 10px;">'
+        '<strong>Creative Commons:</strong> This work is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0 License</a>.'
+        '</p>',
+        unsafe_allow_html=True
+    )
+    st.markdown('</div>', unsafe_allow_html=True)
 
 # Funciones de QR modificadas para logo opcional
 def create_qr(data, color, qr_version=10, box_size=10):
