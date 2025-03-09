@@ -1,3 +1,21 @@
+# QRGB Generator
+# © 2025 Ibar Federico Anderson, Ph.D. M.Des., Industrial Designer. All rights reserved.
+#
+# This work is licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0).
+# To view a copy of this license, visit https://creativecommons.org/licenses/by/4.0/
+# 🔍 You are free to:
+#    • Share — copy and redistribute the material in any medium or format
+#    • Adapt — remix, transform, and build upon the material for any purpose, even commercially.
+# Under the following terms:
+#    • Attribution — You must give appropriate credit, provide a link to the license, and indicate if changes were made.
+#    • No additional restrictions — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.
+#
+# Author Profiles:
+#    📚 Google Scholar - https://scholar.google.com/citations?user=mXD4RFUAAAAJ&hl=en
+#    🆔 ORCID - https://orcid.org/0000-0002-9732-3660
+#    🔬 ResearchGate - https://www.researchgate.net/profile/Ibar-Anderson
+# Symbols: © (Copyright) | CC (Creative Commons) | BY (Attribution)
+
 import streamlit as st
 from PIL import Image
 import qrcode
@@ -58,6 +76,37 @@ st.markdown("""
         align-items: center;
         justify-content: center;
         height: 80px;
+    }
+    .profile-box {
+        background-color: #f8f9fa;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-top: 25px;
+        margin-bottom: 40px;
+    }
+    .profile-box h2 {
+        font-size: 32px;
+        font-weight: 700;
+        color: #2c3e50;
+        margin-bottom: 20px;
+    }
+    .profile-box p {
+        font-size: 18px;
+        color: #34495e;
+        margin-bottom: 10px;
+    }
+    .profile-box a {
+        color: #3498db;
+        text-decoration: none;
+        font-weight: 700;
+    }
+    .profile-box a:hover {
+        color: #2980b9;
+    }
+    .symbol {
+        font-size: 24px;
+        margin-right: 10px;
     }
     /* Botón Codificar QRGB */
     button[kind="encode"] {
@@ -162,6 +211,18 @@ st.markdown("""
     }
     </style>
 """, unsafe_allow_html=True)
+
+# Sección de presentación del creador
+def show_creator_profile():
+    st.markdown('<div class="profile-box">', unsafe_allow_html=True)
+    st.markdown('<h2>👤 About the Creator</h2>', unsafe_allow_html=True)
+    st.markdown('<p>© 2025 <strong>Ibar Federico Anderson, Ph.D. M.Des., Industrial Designer</strong>. All rights reserved.</p>', unsafe_allow_html=True)
+    st.markdown('<p>📚 <strong>Google Scholar:</strong> <a href="https://scholar.google.com/citations?user=mXD4RFUAAAAJ&hl=en" target="_blank">Visit Profile</a></p>', unsafe_allow_html=True)
+    st.markdown('<p>🆔 <strong>ORCID:</strong> <a href="https://orcid.org/0000-0002-9732-3660" target="_blank">Visit Profile</a></p>', unsafe_allow_html=True)
+    st.markdown('<p>🔬 <strong>ResearchGate:</strong> <a href="https://www.researchgate.net/profile/Ibar-Anderson" target="_blank">Visit Profile</a></p>', unsafe_allow_html=True)
+    st.markdown('<p>🔍 This work is licensed under the <strong>Creative Commons Attribution 4.0 International License (CC BY 4.0)</strong>.</p>', unsafe_allow_html=True)
+    st.markdown('<p>👉 <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">View License Details</a></p>', unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
 
 # Funciones de QR modificadas para logo opcional
 def create_qr(data, color, qr_version=10, box_size=10):
@@ -271,6 +332,9 @@ def manual_decode_superposed_qr(filename):
 
 # Interfaz principal
 def main():
+    # Mostrar perfil del creador
+    show_creator_profile()
+
     # Pantalla inicial
     if 'page' not in st.session_state:
         st.session_state.page = "inicio"
