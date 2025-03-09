@@ -197,8 +197,8 @@ st.markdown("""
 # Sección de presentación del creador
 def show_creator_profile():
     st.markdown('<div class="profile-box">', unsafe_allow_html=True)
-    st.markdown('<h2>👤 About the Creator</h2>', unsafe_allow_html=True)
-    st.markdown('<p>© 2025 <strong>Ibar Federico Anderson, Ph.D. M.Des., Industrial Designer</strong>. All rights reserved.</p>', unsafe_allow_html=True)
+    st.markdown('<h2>👤 Autor:</h2>', unsafe_allow_html=True)
+    st.markdown('<p>© 2025 <strong>Ibar Federico Anderson, Ph.D., Master, Industrial Designer</strong>. All rights reserved.</p>', unsafe_allow_html=True)
     st.markdown(
         '<p>'
         '🎓 <strong>Google Scholar:</strong> <a href="https://scholar.google.com/citations?user=mXD4RFUAAAAJ&hl=en" target="_blank">Visit Profile</a>'
@@ -215,7 +215,7 @@ def show_creator_profile():
     st.markdown(
         '<p>'
         '<img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/ResearchGate_icon_SVG.svg" width="20" height="20" style="vertical-align: middle; margin-right: 10px;">'
-        '<strong>ResearchGate:</strong> <a href="https://www.researchgate.net/profile/Ibar-Anderson" target="_blank">Visit Profile</a>'
+        '<strong>Research Gate:</strong> <a href="https://www.researchgate.net/profile/Ibar-Anderson" target="_blank">Visit Profile</a>'
         '</p>',
         unsafe_allow_html=True
     )
@@ -348,7 +348,7 @@ def main():
         st.session_state.page = "inicio"
     if st.session_state.page == "inicio":
         st.markdown('<div class="title">Generador QRGB</div>', unsafe_allow_html=True)
-        st.write("Crea y decodifica códigos QRGB con un diseño profesional y minimalista.")
+        st.write("Codificar y decodificar Códigos QRGB.")
         col1, col2 = st.columns(2)
         with col1:
             if st.button("🔒 Codificar QRGB", key="encode_btn", help="Codificar un nuevo QRGB", type="primary"):
@@ -414,15 +414,15 @@ def main():
                         st.write("**Resultados:**")
                         st.markdown(f'<span class="color-red"><span class="symbol">🔗</span> Capa Roja:</span> {data_red}', unsafe_allow_html=True)
                         if data_red and ('http://' in data_red or 'https://' in data_red):
-                            if st.button("🌐 Abrir URL Roja", key="url_red_btn", help="Abrir la URL de la capa roja", type="primary"):
+                            if st.button("🔗 URL Roja", key="url_red_btn", help="Abrir la URL de la capa roja", type="primary"):
                                 webbrowser.open(data_red)
                         st.markdown(f'<span class="color-green"><span class="symbol">🔗</span> Capa Verde:</span> {data_green}', unsafe_allow_html=True)
                         if data_green and ('http://' in data_green or 'https://' in data_green):
-                            if st.button("🌐 Abrir URL Verde", key="url_green_btn", help="Abrir la URL de la capa verde", type="primary"):
+                            if st.button("🔗 URL Verde", key="url_green_btn", help="Abrir la URL de la capa verde", type="primary"):
                                 webbrowser.open(data_green)
                         st.markdown(f'<span class="color-blue"><span class="symbol">🔗</span> Capa Azul:</span> {data_blue}', unsafe_allow_html=True)
                         if data_blue and ('http://' in data_blue or 'https://' in data_blue):
-                            if st.button("🌐 Abrir URL Azul", key="url_blue_btn", help="Abrir la URL de la capa azul", type="primary"):
+                            if st.button("🔗 URL Azul", key="url_blue_btn", help="Abrir la URL de la capa azul", type="primary"):
                                 webbrowser.open(data_blue)
                         st.markdown('</div>', unsafe_allow_html=True)
                     os.remove(qr_path)
