@@ -1,4 +1,4 @@
-
+v
 import streamlit as st
 from PIL import Image
 import qrcode
@@ -64,6 +64,36 @@ st.markdown("""
         align-items: center;
         justify-content: center;
         height: 60px;
+        background-color: #3498db !important;
+        color: white !important;
+    }
+    
+    /* Botones de codificación/decodificación en la página principal */
+    button:has(div:contains("Codificar QRGB")) {
+        background-color: #3498db !important;
+        color: white !important;
+    }
+    button:has(div:contains("Decodificar QRGB")) {
+        background-color: #2ecc71 !important;
+        color: white !important;
+    }
+    
+    /* Botones de funciones */
+    button:has(div:contains("Generar QRGB")) {
+        background-color: #e67e22 !important;
+        color: white !important;
+    }
+    button:has(div:contains("Analizar QRGB")) {
+        background-color: #2ecc71 !important;
+        color: white !important;
+    }
+    button:has(div:contains("Descargar QRGB")) {
+        background-color: #9b59b6 !important;
+        color: white !important;
+    }
+    button:has(div:contains("Volver")) {
+        background-color: #7f8c8d !important;
+        color: white !important;
     }
     .profile-box {
         background-color: #f8f9fa;
@@ -561,9 +591,14 @@ def main():
         # Campos de entrada con mejor organización
         col1, col2 = st.columns([2, 1])
         with col1:
-            red_data = st.text_input("🔴 Datos de la Capa Roja:", placeholder="Texto o URL", help="Introduce información para la capa roja del QR")
-            green_data = st.text_input("🟢 Datos de la Capa Verde:", placeholder="Texto o URL", help="Introduce información para la capa verde del QR")
-            blue_data = st.text_input("🔵 Datos de la Capa Azul:", placeholder="Texto o URL", help="Introduce información para la capa azul del QR")
+            red_data = st.markdown("<span style='color:#e74c3c; font-size:18px; font-weight:bold'>🔴 Datos de la Capa Roja:</span>", unsafe_allow_html=True)
+            red_data = st.text_input("", placeholder="Texto o URL", help="Introduce información para la capa roja del QR", key="red_input")
+            
+            st.markdown("<span style='color:#2ecc71; font-size:18px; font-weight:bold'>🟢 Datos de la Capa Verde:</span>", unsafe_allow_html=True)
+            green_data = st.text_input("", placeholder="Texto o URL", help="Introduce información para la capa verde del QR", key="green_input")
+            
+            st.markdown("<span style='color:#3498db; font-size:18px; font-weight:bold'>🔵 Datos de la Capa Azul:</span>", unsafe_allow_html=True)
+            blue_data = st.text_input("", placeholder="Texto o URL", help="Introduce información para la capa azul del QR", key="blue_input")
         
         with col2:
             st.write("🖼️ Logo (Opcional)")
