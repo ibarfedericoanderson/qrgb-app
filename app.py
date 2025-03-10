@@ -576,7 +576,7 @@ def main():
         # Botones de acción
         col_btn1, col_btn2 = st.columns([1, 1])
         with col_btn1:
-            generate_button = st.button("🔄 Generar QRGB", help="Generar el QRGB con los datos proporcionados", use_container_width=True)
+            generate_button = st.button("✨ Generar QRGB", help="Generar el QRGB con los datos proporcionados", use_container_width=True)
         with col_btn2:
             if st.button("🏠 Volver", help="Volver al inicio", use_container_width=True):
                 st.session_state.page = "inicio"
@@ -696,7 +696,7 @@ def main():
                             st.markdown(f'<span class="{color_class}"><span class="symbol">{emoji}</span> Capa {color_name}:</span> {data if data else "No se pudo decodificar"}', unsafe_allow_html=True)
                             
                             if data and ('http://' in data or 'https://' in data):
-                                st.markdown(f'<a href="{data}" target="_blank" class="url-button url-button-{color_class.split("-")[1]}">{emoji} Abrir URL {color_name}</a>', unsafe_allow_html=True)
+                                st.markdown(f'<a href="{data}" target="_blank" class="url-button url-button-{color_class.split("-")[1]}">🔗 Abrir URL {color_name}</a>', unsafe_allow_html=True)
                         
                         # Mostrar datos de cada capa
                         display_layer_data("Roja", "color-red", data_red, "🔴")
